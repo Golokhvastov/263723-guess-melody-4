@@ -5,6 +5,10 @@ const ArtistQuestionScreen = (props) => {
   const {question, onAnswer} = props;
   const {answers, song} = question;
 
+  const answerHandler = (index) => {
+    onAnswer(question, answers[index]);
+  };
+
   return (
     <section className="game game--artist">
       <header className="game__header">
@@ -41,7 +45,7 @@ const ArtistQuestionScreen = (props) => {
             const artistNumber = `artist-${index}`;
             const answerNumber = `answer-${index}`;
             return (
-              <div className="artist" key={answer + index} onClick={onAnswer}>
+              <div className="artist" key={answer + index} onClick={() => answerHandler(index)}>
                 <input className="artist__input visually-hidden" type="radio" name="answer" value={artistNumber} id={answerNumber}></input>
                 <label className="artist__name" htmlFor={answerNumber}>
                   <img className="artist__picture" src={answer.picture} alt={answer.artist}></img>

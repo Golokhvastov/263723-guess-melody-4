@@ -22,7 +22,7 @@ class App extends React.PureComponent {
 
   answerHandler() {
     this.setState(
-      (prevState) => ({step: prevState.step + 1})
+        (prevState) => ({step: prevState.step + 1})
     );
   }
 
@@ -40,22 +40,19 @@ class App extends React.PureComponent {
                   errorsCount = {errorsCount}
                   onWelcomeButtonClick = {this.welcomeButtonClickHandler}
                 />
-                :
-              (0 <= step && step < questions.length && questions[step].type === `artist`)
-                ? <ArtistQuestionScreen
-                  question = {questions[step]}
-                  onAnswer = {this.answerHandler}
-                />
-                :
-              (0 <= step && step < questions.length && questions[step].type === `genre`)
-                ? <GenreQuestionScreen
-                  question = {questions[step]}
-                  onAnswer = {this.answerHandler}
-                />
-                :
-              (step >= questions.length)
-                ? this.setState({step: -1})
-                : null
+                : (0 <= step && step < questions.length && questions[step].type === `artist`)
+                  ? <ArtistQuestionScreen
+                    question = {questions[step]}
+                    onAnswer = {this.answerHandler}
+                  />
+                  : (0 <= step && step < questions.length && questions[step].type === `genre`)
+                    ? <GenreQuestionScreen
+                      question = {questions[step]}
+                      onAnswer = {this.answerHandler}
+                    />
+                    : (step >= questions.length)
+                      ? this.setState({step: -1})
+                      : null
             }
           </Route>
           <Route exact path="/dev-artist">

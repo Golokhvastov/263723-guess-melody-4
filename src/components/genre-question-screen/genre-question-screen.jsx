@@ -5,6 +5,19 @@ const GenreQuestionScreen = (props) => {
   const {question, onAnswer} = props;
   const {answers} = question;
 
+  const answerHandler = (evt) => {
+    evt.preventDefault();
+    const checkboxes = document.getElementsByClassName(`game__input`);
+    let answerArray = [];
+    for (let index = 0; index < checkboxes.length; index++) {
+      if (checkboxes[index].checked) {
+        const answerIndex = parseInt(checkboxes[index].value.slice(7), 10);
+        answerArray.push(answers[answerIndex]);
+      }
+    }
+    onAnswer(question, answerArray);
+  };
+
   return (
     <section className="game game--genre">
       <header className="game__header">
@@ -44,7 +57,7 @@ const GenreQuestionScreen = (props) => {
             );
           })}
 
-          <button className="game__submit button" type="submit" onClick={onAnswer}>Ответить</button>
+          <button className="game__submit button" type="submit" onClick={answerHandler}>Ответить</button>
         </form>
       </section>
     </section>
