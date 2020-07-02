@@ -20,7 +20,9 @@ const App = (props) => {
           />
         </Route>
         <Route exact path="/dev-artist">
-          <ArtistQuestionScreen />
+          <ArtistQuestionScreen
+            question = {questions[0]}
+          />
         </Route>
         <Route exact path="/dev-genre">
           <GenreQuestionScreen />
