@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Settings from "./mock/settings.js";
+import Settings from "./mocks/settings.js";
 import questions from "./mocks/questions.js";
 import App from "./components/app/app.jsx";
 
