@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const GenreQuestionScreen = (props) => {
-  const {question} = props;
+  const {question, onAnswer} = props;
   const {answers} = question;
 
   return (
@@ -44,7 +44,7 @@ const GenreQuestionScreen = (props) => {
             );
           })}
 
-          <button className="game__submit button" type="submit">Ответить</button>
+          <button className="game__submit button" type="submit" onClick={onAnswer}>Ответить</button>
         </form>
       </section>
     </section>
@@ -63,5 +63,6 @@ GenreQuestionScreen.propTypes = {
           genre: PropTypes.string.isRequired
         })
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  onAnswer: PropTypes.func.isRequired
 };

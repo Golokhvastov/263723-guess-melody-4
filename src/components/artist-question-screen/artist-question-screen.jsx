@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ArtistQuestionScreen = (props) => {
-  const {question} = props;
+  const {question, onAnswer} = props;
   const {answers, song} = question;
 
   return (
@@ -41,7 +41,7 @@ const ArtistQuestionScreen = (props) => {
             const artistNumber = `artist-${index}`;
             const answerNumber = `answer-${index}`;
             return (
-              <div className="artist" key={answer + index}>
+              <div className="artist" key={answer + index} onClick={onAnswer}>
                 <input className="artist__input visually-hidden" type="radio" name="answer" value={artistNumber} id={answerNumber}></input>
                 <label className="artist__name" htmlFor={answerNumber}>
                   <img className="artist__picture" src={answer.picture} alt={answer.artist}></img>
@@ -71,5 +71,6 @@ ArtistQuestionScreen.propTypes = {
           picture: PropTypes.string.isRequired
         })
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  onAnswer: PropTypes.func.isRequired
 };
