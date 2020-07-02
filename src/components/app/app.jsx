@@ -8,7 +8,7 @@ import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.
 const welcomeButtonClickHandler = () => {};
 
 const App = (props) => {
-  const {errorsCount} = props;
+  const {errorsCount, questions} = props;
 
   return (
     <BrowserRouter>
@@ -34,4 +34,7 @@ export default App;
 
 App.propTypes = {
   errorsCount: PropTypes.number.isRequired,
+  questions: PropTypes.arrayOf(
+      PropTypes.object
+  ).isRequired
 };
