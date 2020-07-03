@@ -44,8 +44,8 @@ class App extends React.PureComponent {
         case GameType.ARTIST:
           return (
             <ArtistQuestionScreen
-               question = {questions[step]}
-               onAnswer = {this.answerHandler}
+              question = {questions[step]}
+              onAnswer = {this.answerHandler}
             />
           );
         case GameType.GENRE:

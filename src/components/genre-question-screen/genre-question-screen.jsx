@@ -1,75 +1,95 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {GameType} from "../../const.js";
 
-const GenreQuestionScreen = (props) => {
-  const {question, onAnswer} = props;
-  const {answers} = question;
+class GenreQuestionScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      answers: [false, false, false, false],
+    };
+  }
 
-  const answerHandler = (evt) => {
-    // evt.preventDefault();
-    const checkboxes = document.getElementsByClassName(`game__input`);
-    console.log(checkboxes);
-    let answerArray = [];
-    for (let index = 0; index < checkboxes.length; index++) {
-      if (checkboxes[index].checked) {
-        const answerIndex = parseInt(checkboxes[index].value.slice(7), 10);
-        answerArray.push(answers[answerIndex]);
-      }
-    }
-    onAnswer(question, answerArray);
-  };
+  answerHandler() {
+    const {question, onAnswer} = this.props;
 
-  return (
-    <section className="game game--genre">
-      <header className="game__header">
-        <a className="game__back" href="#">
-          <span className="visually-hidden">Сыграть ещё раз</span>
-          <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию"></img>
-        </a>
+    onAnswer(question, this.state.answers);
+  }
 
-        <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
-          <circle className="timer__line" cx="390" cy="390" r="370"
-            style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
-        </svg>
+  render() {
+    const {question} = this.props;
+    const {answers: userAnswers} = this.state;
+    const {answers} = question;
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
-      </header>
+    return (
+      <section className="game game--genre">
+        <header className="game__header">
+          <a className="game__back" href="#">
+            <span className="visually-hidden">Сыграть ещё раз</span>
+            <img className="game__logo" src="img/melody-logo-ginger.png" alt="Угадай мелодию"></img>
+          </a>
 
-      <section className="game__screen">
-        <h2 className="game__title">Выберите инди-рок треки</h2>
-        <form className="game__tracks">
-          {answers.map((answer, index) => {
-            const answerNumber = `answer-${index}`;
-            return (
-              <div className="track" key={answer + index}>
-                <button className="track__button track__button--play" type="button"></button>
-                <div className="track__status">
-                  <audio src={answer.src}></audio>
+          <svg xmlns="http://www.w3.org/2000/svg" className="timer" viewBox="0 0 780 780">
+            <circle className="timer__line" cx="390" cy="390" r="370"
+              style={{filter: `url(#blur)`, transform: `rotate(-90deg) scaleY(-1)`, transformOrigin: `center`}} />
+          </svg>
+
+          <div className="game__mistakes">
+            <div className="wrong"></div>
+            <div className="wrong"></div>
+            <div className="wrong"></div>
+          </div>
+        </header>
+
+        <section className="game__screen">
+          <h2 className="game__title">Выберите инди-рок треки</h2>
+          <form
+            className="game__tracks"
+            onSubmit={(evt) => {
+              evt.preventDefault();
+              this.answerHandler();
+            }}
+          >
+            {answers.map((answer, i) => {
+              return (
+                <div className="track" key={answer.src + i}>
+                  <button className="track__button track__button--play" type="button"></button>
+                  <div className="track__status">
+                    <audio
+                      src={answer.src}
+                    />
+                  </div>
+                  <div className="game__answer">
+                    <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
+                      id={`answer-${i}`}
+                      checked={userAnswers[i]}
+                      onChange={(evt) => {
+                        const value = evt.target.checked;
+
+                        this.setState({
+                          answers: [...userAnswers.slice(0, i), value, ...userAnswers.slice(i + 1)],
+                        });
+                      }}
+                    />
+                    <label className="game__check" htmlFor={`answer-${i}`}>Отметить</label>
+                  </div>
                 </div>
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={answerNumber} id={answerNumber}></input>
-                  <label className="game__check" htmlFor={answerNumber}>Отметить</label>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
 
-          <button className="game__submit button" type="submit" onClick={answerHandler}>Ответить</button>
-        </form>
+            <button className="game__submit button" type="submit">Ответить</button>
+          </form>
+        </section>
       </section>
-    </section>
-  );
-};
+    );
+  }
+}
 
 export default GenreQuestionScreen;
 
 GenreQuestionScreen.propTypes = {
   question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
     genre: PropTypes.string.isRequired,
     answers: PropTypes.arrayOf(
         PropTypes.shape({

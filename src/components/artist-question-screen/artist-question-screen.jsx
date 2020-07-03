@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {GameType} from "../../const.js";
 
 const ArtistQuestionScreen = (props) => {
   const {question, onAnswer} = props;
   const {answers, song} = question;
 
-  const answerHandler = (index) => {
-    onAnswer(question, answers[index]);
+  const answerHandler = (answer) => {
+    onAnswer(question, answer);
   };
 
   return (
@@ -41,13 +42,16 @@ const ArtistQuestionScreen = (props) => {
         </div>
 
         <form className="game__artist">
-          {answers.map((answer, index) => {
-            const artistNumber = `artist-${index}`;
-            const answerNumber = `answer-${index}`;
+          {answers.map((answer, i) => {
             return (
-              <div className="artist" key={answer + index} onClick={() => answerHandler(index)}>
-                <input className="artist__input visually-hidden" type="radio" name="answer" value={artistNumber} id={answerNumber}></input>
-                <label className="artist__name" htmlFor={answerNumber}>
+              <div className="artist" key={answer + i}>
+                <input className="artist__input visually-hidden" type="radio" name="answer" value={`artist-${i}`} id={`answer-${i}`}
+                  onChange={(evt) => {
+                    evt.preventDefault();
+                    answerHandler(answer);
+                  }}
+                ></input>
+                <label className="artist__name" htmlFor={`answer-${i}`}>
                   <img className="artist__picture" src={answer.picture} alt={answer.artist}></img>
                   {answer.artist}
                 </label>
@@ -64,7 +68,7 @@ export default ArtistQuestionScreen;
 
 ArtistQuestionScreen.propTypes = {
   question: PropTypes.shape({
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([GameType.ARTIST, GameType.GENRE]).isRequired,
     song: PropTypes.shape({
       artist: PropTypes.string.isRequired,
       src: PropTypes.string.isRequired
