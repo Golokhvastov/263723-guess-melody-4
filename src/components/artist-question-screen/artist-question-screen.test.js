@@ -22,15 +22,15 @@ const question = {
       picture: `https://api.adorable.io/avatars/128`
     }
   ]
-}
+};
 
 it(`ArtistQuestionScreen render correctly`, () => {
   const tree = renderer
     .create(
-      <ArtistQuestionScreen
-        question = {question}
-        onAnswer = {() => {}}
-      />
+        <ArtistQuestionScreen
+          question = {question}
+          onAnswer = {() => {}}
+        />
     ).toJSON();
 
   expect(tree).toMatchSnapshot();
