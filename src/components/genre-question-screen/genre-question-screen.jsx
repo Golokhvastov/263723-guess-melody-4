@@ -6,8 +6,9 @@ const GenreQuestionScreen = (props) => {
   const {answers} = question;
 
   const answerHandler = (evt) => {
-    evt.preventDefault();
+    // evt.preventDefault();
     const checkboxes = document.getElementsByClassName(`game__input`);
+    console.log(checkboxes);
     let answerArray = [];
     for (let index = 0; index < checkboxes.length; index++) {
       if (checkboxes[index].checked) {
