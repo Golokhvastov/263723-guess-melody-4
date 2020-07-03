@@ -7,46 +7,65 @@ Enzyme.configure({
   adapter: new Adapter()
 });
 
-const question = {
-  type: `genre`,
-  genre: `тест1`,
-  answers: [
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-      genre: `тест2`
-    },
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-      genre: `тест3`
-    },
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-      genre: `тест1`
-    },
-    {
-      src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-      genre: `тест1`
-    }
-  ]
-}
+const mock = {
+  question: {
+    type: `genre`,
+    genre: `тест1`,
+    answers: [
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `тест2`
+      },
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `тест3`
+      },
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `тест1`
+      },
+      {
+        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        genre: `тест1`
+      }
+    ]
+  }
+};
 
 it(`e2e test GenreQuestionScreen`, () => {
-  const answerHandler = jest.fn();
+  const {question} = mock;
+  const onAnswer = jest.fn();
+  const userAnswer = {
+    indexInputForCheck: 1,
+    resultAnswer: [false, true, false, false],
+  };
 
   const genreQuestionScreen = shallow(
-    <GenreQuestionScreen
-      question = {question}
-      onAnswer = {answerHandler}
-    />
+      <GenreQuestionScreen
+        question = {question}
+        onAnswer = {onAnswer}
+      />
   );
 
-  // const inputs = genreQuestionScreen.find(`.game__input`)
-  // inputs.at(1).simulate('change', { target: { checked: true } });
-  // inputs.at(2).simulate('change', { target: { checked: true } });
+  const inputs = genreQuestionScreen.find(`.game__input`);
+  const inputForCheck = inputs.at(userAnswer.indexInputForCheck);
+  inputForCheck.simulate(`change`, {target: {checked: true}});
 
-  genreQuestionScreen.find(`.game__submit`).simulate(`click`);
 
-  expect(answerHandler.mock.calls.length).toBe(1);
-  // expect(answerHandler.mock.calls[0][0]).toEqual(question);
-  // expect(answerHandler.mock.calls[0][1]).toEqual(question.answers[1]);
+  const form = genreQuestionScreen.find(`form`);
+  const formSendPrevention = jest.fn();
+  form.simulate(`submit`, {
+    preventDefault: formSendPrevention,
+  });
+
+  // expect(onAnswer.mock.calls.length).toBe(1);
+  expect(onAnswer).toHaveBeenCalledTimes(1);
+  expect(formSendPrevention).toHaveBeenCalledTimes(1);
+
+  expect(onAnswer.mock.calls[0][0]).toEqual(question);
+  expect(onAnswer.mock.calls[0][1]).toEqual(userAnswer.resultAnswer);
+
+  expect(
+      genreQuestionScreen.find(`input`).map((it) => it.prop(`checked`))
+  ).toEqual(userAnswer.resultAnswer);
 });
