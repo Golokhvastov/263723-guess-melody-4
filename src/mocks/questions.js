@@ -1,8 +1,4 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import App from "./app.jsx";
-
-const questions = [
+export default [
   {
     type: `artist`,
     song: {
@@ -11,18 +7,18 @@ const questions = [
     },
     answers: [
       {
-        picture: `https://api.adorable.io/avatars/128/1`,
-        artist: `John Snow`,
+        artist: `Пелагея`,
+        picture: `https://api.adorable.io/avatars/128/${Math.random()}`
       },
       {
-        picture: `https://api.adorable.io/avatars/128/2`,
-        artist: `Jack Daniels`,
+        artist: `Краснознаменная дивизия имени моей бабушки`,
+        picture: `https://api.adorable.io/avatars/128/${Math.random()}`
       },
       {
-        picture: `https://api.adorable.io/avatars/128/3`,
-        artist: `Jim Beam`,
+        artist: `Lorde`,
+        picture: `https://api.adorable.io/avatars/128/${Math.random()}`
       }
-    ],
+    ]
   },
   {
     type: `genre`,
@@ -30,31 +26,20 @@ const questions = [
     answers: [
       {
         src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-        genre: `rock`,
+        genre: `blues`
       },
       {
         src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-        genre: `blues`,
+        genre: `rock`
       },
       {
         src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-        genre: `jazz`,
+        genre: `rock`
       },
       {
         src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-        genre: `rock`,
+        genre: `jazz`
       }
-    ],
-  },
+    ]
+  }
 ];
-
-it(`App render correctly`, () => {
-  const tree = renderer
-    .create(<App
-      errorsCount = {3}
-      questions = {questions}
-    />)
-    .toJSON();
-
-  expect(tree).toMatchSnapshot();
-});
