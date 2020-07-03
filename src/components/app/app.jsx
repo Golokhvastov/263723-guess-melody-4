@@ -5,6 +5,10 @@ import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 
+const GameType = {
+  ARTIST: `artist`,
+  GENRE: `genre`,
+};
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -17,43 +21,58 @@ class App extends React.PureComponent {
   }
 
   welcomeButtonClickHandler() {
-    this.setState({step: 0});
+    this.setState({
+      step: 0
+    });
   }
 
   answerHandler() {
-    this.setState(
-        (prevState) => ({step: prevState.step + 1})
-    );
+    this.setState((prevState) => ({
+      step: prevState.step + 1
+    }));
+  }
+
+  _renderGameScreen() {
+    const {errorsCount, questions} = this.props;
+    const {step} = this.state;
+
+    if (step < 0 || step >= questions.length) {
+      return (
+        <WelcomeScreen
+          errorsCount = {errorsCount}
+          onWelcomeButtonClick = {this.welcomeButtonClickHandler}
+        />
+      );
+    } else if (questions[step]) {
+      switch (questions[step].type) {
+        case GameType.ARTIST:
+          return (
+            <ArtistQuestionScreen
+               question = {questions[step]}
+               onAnswer = {this.answerHandler}
+            />
+          );
+        case GameType.GENRE:
+          return (
+            <GenreQuestionScreen
+              question = {questions[step]}
+              onAnswer = {this.answerHandler}
+            />
+          );
+      }
+    }
+
+    return null;
   }
 
   render() {
-    const {errorsCount, questions} = this.props;
-    const {step} = this.state;
+    const {questions} = this.props;
 
     return (
       <BrowserRouter>
         <Switch>
           <Route exact path="/">
-            {
-              (step === -1)
-                ? <WelcomeScreen
-                  errorsCount = {errorsCount}
-                  onWelcomeButtonClick = {this.welcomeButtonClickHandler}
-                />
-                : (0 <= step && step < questions.length && questions[step].type === `artist`)
-                  ? <ArtistQuestionScreen
-                    question = {questions[step]}
-                    onAnswer = {this.answerHandler}
-                  />
-                  : (0 <= step && step < questions.length && questions[step].type === `genre`)
-                    ? <GenreQuestionScreen
-                      question = {questions[step]}
-                      onAnswer = {this.answerHandler}
-                    />
-                    : (step >= questions.length)
-                      ? this.setState({step: -1})
-                      : null
-            }
+            {this._renderGameScreen()}
           </Route>
           <Route exact path="/dev-artist">
             <ArtistQuestionScreen
@@ -71,7 +90,7 @@ class App extends React.PureComponent {
       </BrowserRouter>
     );
   }
-};
+}
 
 export default App;
 
