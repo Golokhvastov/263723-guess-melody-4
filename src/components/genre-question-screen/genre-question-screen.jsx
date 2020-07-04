@@ -10,7 +10,7 @@ class GenreQuestionScreen extends React.PureComponent {
       answers: [false, false, false, false],
       activePlayerIndex: 0
     };
-    this.activeChangeHandler = this.activeChangeHandler.bind(this);
+    this.playButtonClickHandler = this.playButtonClickHandler.bind(this);
   }
 
   answerHandler() {
@@ -19,16 +19,10 @@ class GenreQuestionScreen extends React.PureComponent {
     onAnswer(question, this.state.answers);
   }
 
-  activeChangeHandler(index) {
-    if (index === this.state.activePlayerIndex) {
-      this.setState({
-        activePlayerIndex: -1,
-      });
-    } else {
-      this.setState({
-        activePlayerIndex: index,
-      });
-    }
+  playButtonClickHandler(i) {
+    this.setState({
+      activePlayerIndex: this.state.activePlayerIndex === i ? -1 : i,
+    });
   }
 
   render() {
@@ -52,6 +46,7 @@ class GenreQuestionScreen extends React.PureComponent {
                 <AudioPlayer
                   src = {answer.src}
                   isPlaying = {i === this.state.activePlayerIndex}
+                  onPlayButtonClick = {() => this.playButtonClickHandler(i)}
                 />
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}

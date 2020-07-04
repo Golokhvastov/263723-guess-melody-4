@@ -18,7 +18,8 @@ const ArtistQuestionScreen = (props) => {
         <div className="track">
           <AudioPlayer
             src = {song.src}
-            isPlaying = {false}
+            isPlaying = {true}
+            onPlayButtonClick = {() => {}}
           />
         </div>
       </div>
