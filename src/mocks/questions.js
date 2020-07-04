@@ -29,11 +29,11 @@ export default [
         genre: `blues`
       },
       {
-        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/6/6d/USMC_stars_stripes_forever.ogg`,
         genre: `rock`
       },
       {
-        src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
+        src: `https://upload.wikimedia.org/wikipedia/commons/9/9d/Fackeltanz_No._1_in_B_flat_-_U.S._Marine_Band.ogg`,
         genre: `rock`
       },
       {
