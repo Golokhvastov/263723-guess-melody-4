@@ -5,36 +5,32 @@ class AudioPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isActive: false,
       audio: new Audio()
     };
-    this.playerClickHandler = this.playerClickHandler.bind(this);
-  }
-
-  playerClickHandler() {
-    const {audio} = this.state;
-    this.state.isActive ? audio.pause() : audio.play();
-    this.setState(
-      (prevState) => ({isActive: !prevState.isActive})
-    );
   }
 
   componentDidMount() {
-    this.state.audio.src = this.props.src;
+    const {audio} = this.state;
+    audio.src = this.props.src;
+
+    this.props.isActive ? audio.play() : audio.pause();
+  }
+
+  componentDidUpdate() {
+    const {audio} = this.state;
+    this.props.isActive ? audio.play() : audio.pause();
+  }
+
+  componentWillUnmount() {
+    const {audio} = this.state;
+    audio.pause();
+    audio.src = null;
+    this.setState({audio: null});
   }
 
   render() {
     return (
-      <>
-        <button
-          className={`track__button ${this.state.isActive ? `track__button--pause` : `track__button--play`}`}
-          type="button"
-          onClick={this.playerClickHandler}
-        ></button>
-        <div className="track__status">
-          <audio></audio>
-        </div>
-      </>
+      <audio></audio>
     );
   }
 }
@@ -42,5 +38,6 @@ class AudioPlayer extends React.PureComponent {
 export default AudioPlayer;
 
 AudioPlayer.propTypes = {
-  src: PropTypes.string.isRequired
+  src: PropTypes.string.isRequired,
+  isActive: PropTypes.bool.isRequired
 };
