@@ -12,13 +12,15 @@ class AudioPlayer extends React.PureComponent {
   componentDidMount() {
     const {audio} = this.state;
     audio.src = this.props.src;
-
-    this.props.isActive ? audio.play() : audio.pause();
   }
 
   componentDidUpdate() {
     const {audio} = this.state;
-    this.props.isActive ? audio.play() : audio.pause();
+    if (this.props.isActive) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
   }
 
   componentWillUnmount() {

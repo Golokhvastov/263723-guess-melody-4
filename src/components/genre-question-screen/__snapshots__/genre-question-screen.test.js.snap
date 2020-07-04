@@ -72,14 +72,13 @@ exports[`GenreQuestionScreen render correctly 1`] = `
       >
         <button
           className="track__button track__button--play"
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"
@@ -106,14 +105,13 @@ exports[`GenreQuestionScreen render correctly 1`] = `
       >
         <button
           className="track__button track__button--play"
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"
@@ -140,14 +138,13 @@ exports[`GenreQuestionScreen render correctly 1`] = `
       >
         <button
           className="track__button track__button--play"
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"
@@ -174,14 +171,13 @@ exports[`GenreQuestionScreen render correctly 1`] = `
       >
         <button
           className="track__button track__button--play"
+          onClick={[Function]}
           type="button"
         />
         <div
           className="track__status"
         >
-          <audio
-            src="https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg"
-          />
+          <audio />
         </div>
         <div
           className="game__answer"

@@ -18,12 +18,12 @@ class ArtistQuestionScreen extends React.PureComponent {
 
   activeChangeHandler() {
     this.setState(
-      (prevState) => ({isActive: !prevState.isActive})
+        (prevState) => ({isActive: !prevState.isActive})
     );
   }
 
   render() {
-    const {question, onAnswer} = this.props;
+    const {question} = this.props;
     const {answers, song} = question;
     const isActive = this.state.isActive;
 
