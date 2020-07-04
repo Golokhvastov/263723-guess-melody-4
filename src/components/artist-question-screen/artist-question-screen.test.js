@@ -30,7 +30,11 @@ it(`ArtistQuestionScreen render correctly`, () => {
         <ArtistQuestionScreen
           question = {question}
           onAnswer = {() => {}}
-        />
+        />, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
     ).toJSON();
 
   expect(tree).toMatchSnapshot();
