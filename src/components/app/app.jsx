@@ -2,9 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import WelcomeScreen from "../welcome-screen/welcome-screen.jsx";
+import GameScreen from "../game-screen/game-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../const.js";
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
+
+const ArtistQuestionScreenWrapper = withAudioPlayer(ArtistQuestionScreen);
+const GenreQuestionScreenWrapper = withAudioPlayer(GenreQuestionScreen);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -39,21 +44,31 @@ class App extends React.PureComponent {
           onWelcomeButtonClick = {this.welcomeButtonClickHandler}
         />
       );
-    } else if (questions[step]) {
-      switch (questions[step].type) {
+    } else {
+      const question = questions[step];
+
+      switch (question.type) {
         case GameType.ARTIST:
           return (
-            <ArtistQuestionScreen
-              question = {questions[step]}
-              onAnswer = {this.answerHandler}
-            />
+            <GameScreen
+              type={question.type}
+            >
+              <ArtistQuestionScreenWrapper
+                question = {question}
+                onAnswer = {this.answerHandler}
+              />
+            </GameScreen>
           );
         case GameType.GENRE:
           return (
-            <GenreQuestionScreen
-              question = {questions[step]}
-              onAnswer = {this.answerHandler}
-            />
+            <GameScreen
+              type={question.type}
+            >
+              <GenreQuestionScreenWrapper
+                question = {question}
+                onAnswer = {this.answerHandler}
+              />
+            </GameScreen>
           );
       }
     }
@@ -71,13 +86,13 @@ class App extends React.PureComponent {
             {this._renderGameScreen()}
           </Route>
           <Route exact path="/dev-artist">
-            <ArtistQuestionScreen
+            <ArtistQuestionScreenWrapper
               question = {questions[0]}
               onAnswer = {this.answerHandler}
             />
           </Route>
           <Route exact path="/dev-genre">
-            <GenreQuestionScreen
+            <GenreQuestionScreenWrapper
               question = {questions[1]}
               onAnswer = {this.answerHandler}
             />
