@@ -50,6 +50,7 @@ it(`e2e test ArtistQuestionScreen`, () => {
       <ArtistQuestionScreen
         question = {question}
         onAnswer = {onAnswer}
+        renderPlayer = {() => {}}
       />
   );
 

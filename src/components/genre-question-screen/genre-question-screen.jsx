@@ -1,16 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {GameType} from "../../const.js";
-import AudioPlayer from "../audio-player/audio-player.jsx";
 
 class GenreQuestionScreen extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       answers: [false, false, false, false],
-      activePlayerIndex: 0
     };
-    this.playButtonClickHandler = this.playButtonClickHandler.bind(this);
   }
 
   answerHandler() {
@@ -19,14 +16,8 @@ class GenreQuestionScreen extends React.PureComponent {
     onAnswer(question, this.state.answers);
   }
 
-  playButtonClickHandler(i) {
-    this.setState({
-      activePlayerIndex: this.state.activePlayerIndex === i ? -1 : i,
-    });
-  }
-
   render() {
-    const {question} = this.props;
+    const {question, renderPlayer} = this.props;
     const {answers: userAnswers} = this.state;
     const {answers} = question;
 
@@ -43,11 +34,7 @@ class GenreQuestionScreen extends React.PureComponent {
           {answers.map((answer, i) => {
             return (
               <div className="track" key={answer.src + i}>
-                <AudioPlayer
-                  src = {answer.src}
-                  isPlaying = {i === this.state.activePlayerIndex}
-                  onPlayButtonClick = {() => this.playButtonClickHandler(i)}
-                />
+                {renderPlayer(answer.src, i)}
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
                     id={`answer-${i}`}
@@ -86,5 +73,6 @@ GenreQuestionScreen.propTypes = {
         })
     ).isRequired
   }).isRequired,
-  onAnswer: PropTypes.func.isRequired
+  onAnswer: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
 };

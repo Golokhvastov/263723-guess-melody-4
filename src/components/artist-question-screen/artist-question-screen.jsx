@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {GameType} from "../../const.js";
-import AudioPlayer from "../audio-player/audio-player.jsx";
 
 const ArtistQuestionScreen = (props) => {
-  const {question, onAnswer} = props;
+  const {question, onAnswer, renderPlayer} = props;
   const {answers, song} = question;
 
   const answerHandler = (answer) => {
@@ -16,11 +15,7 @@ const ArtistQuestionScreen = (props) => {
       <h2 className="game__title">Кто исполняет эту песню?</h2>
       <div className="game__track">
         <div className="track">
-          <AudioPlayer
-            src = {song.src}
-            isPlaying = {true}
-            onPlayButtonClick = {() => {}}
-          />
+          {renderPlayer(song.src)}
         </div>
       </div>
 
@@ -62,5 +57,6 @@ ArtistQuestionScreen.propTypes = {
         })
     ).isRequired
   }).isRequired,
-  onAnswer: PropTypes.func.isRequired
+  onAnswer: PropTypes.func.isRequired,
+  renderPlayer: PropTypes.func.isRequired,
 };

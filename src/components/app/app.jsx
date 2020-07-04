@@ -6,6 +6,10 @@ import GameScreen from "../game-screen/game-screen.jsx";
 import ArtistQuestionScreen from "../artist-question-screen/artist-question-screen.jsx";
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../const.js";
+import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
+
+const ArtistQuestionScreenWrapper = withAudioPlayer(ArtistQuestionScreen);
+const GenreQuestionScreenWrapper = withAudioPlayer(GenreQuestionScreen);
 
 class App extends React.PureComponent {
   constructor(props) {
@@ -49,7 +53,7 @@ class App extends React.PureComponent {
             <GameScreen
               type={question.type}
             >
-              <ArtistQuestionScreen
+              <ArtistQuestionScreenWrapper
                 question = {question}
                 onAnswer = {this.answerHandler}
               />
@@ -60,7 +64,7 @@ class App extends React.PureComponent {
             <GameScreen
               type={question.type}
             >
-              <GenreQuestionScreen
+              <GenreQuestionScreenWrapper
                 question = {question}
                 onAnswer = {this.answerHandler}
               />
@@ -82,13 +86,13 @@ class App extends React.PureComponent {
             {this._renderGameScreen()}
           </Route>
           <Route exact path="/dev-artist">
-            <ArtistQuestionScreen
+            <ArtistQuestionScreenWrapper
               question = {questions[0]}
               onAnswer = {this.answerHandler}
             />
           </Route>
           <Route exact path="/dev-genre">
-            <GenreQuestionScreen
+            <GenreQuestionScreenWrapper
               question = {questions[1]}
               onAnswer = {this.answerHandler}
             />

@@ -44,6 +44,7 @@ it(`e2e test GenreQuestionScreen`, () => {
       <GenreQuestionScreen
         question = {question}
         onAnswer = {onAnswer}
+        renderPlayer = {() => {}}
       />
   );
 
