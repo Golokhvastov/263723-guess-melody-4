@@ -4,7 +4,7 @@ import AudioPlayer from "./audio-player.jsx";
 
 const mock = {
   src: `https://upload.wikimedia.org/wikipedia/commons/4/4e/BWV_543-fugue.ogg`,
-  isActive: true,
+  isPlaying: true,
 };
 
 it(`AudioPlayer render correctly`, () => {
@@ -12,7 +12,7 @@ it(`AudioPlayer render correctly`, () => {
     .create(
         <AudioPlayer
           src = {mock.src}
-          isActive = {mock.isActive}
+          isPlaying = {mock.isPlaying}
         />
     ).toJSON();
 

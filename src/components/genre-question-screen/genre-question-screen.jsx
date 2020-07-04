@@ -8,7 +8,7 @@ class GenreQuestionScreen extends React.PureComponent {
     super(props);
     this.state = {
       answers: [false, false, false, false],
-      activePlayerIndex: -1
+      activePlayerIndex: 0
     };
     this.activeChangeHandler = this.activeChangeHandler.bind(this);
   }
@@ -47,21 +47,12 @@ class GenreQuestionScreen extends React.PureComponent {
           }}
         >
           {answers.map((answer, i) => {
-            const isActive = i === this.state.activePlayerIndex ? true : false;
-
             return (
               <div className="track" key={answer.src + i}>
-                <button
-                  className={`track__button ${isActive ? `track__button--pause` : `track__button--play`}`}
-                  type="button"
-                  onClick={() => this.activeChangeHandler(i)}
-                ></button>
-                <div className="track__status">
-                  <AudioPlayer
-                    src = {answer.src}
-                    isActive = {isActive}
-                  />
-                </div>
+                <AudioPlayer
+                  src = {answer.src}
+                  isPlaying = {i === this.state.activePlayerIndex}
+                />
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={`answer-${i}`}
                     id={`answer-${i}`}

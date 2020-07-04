@@ -5,34 +5,67 @@ class AudioPlayer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      audio: new Audio()
+      progress: 0,
+      isLoading: true,
+      isPlaying: props.isPlaying
     };
   }
 
   componentDidMount() {
-    const {audio} = this.state;
-    audio.src = this.props.src;
+    const {src} = this.props;
+
+    this._audio = new Audio(src);
+
+    this._audio.oncanplaythrough = () => this.setState({
+      isLoading: false,
+    });
+
+    this._audio.onplay = () => this.setState({
+      isPlaying: true,
+    });
+
+    this._audio.onpause = () => this.setState({
+      isPlaying: false,
+    });
+
+    this._audio.ontimeupdate = () => this.setState({
+      progress: this._audio.currentTime
+    });
   }
 
   componentDidUpdate() {
-    const {audio} = this.state;
-    if (this.props.isActive) {
-      audio.play();
+    if (this.state.isPlaying) {
+      this._audio.play();
     } else {
-      audio.pause();
+      this._audio.pause();
     }
   }
 
   componentWillUnmount() {
-    const {audio} = this.state;
-    audio.pause();
-    audio.src = null;
-    this.setState({audio: null});
+    this._audio.oncanplaythrough = null;
+    this._audio.onplay = null;
+    this._audio.onpause = null;
+    this._audio.ontimeupdate = null;
+
+    this._audio.src = null;
+    this._audio = null;
   }
 
   render() {
+    const {isLoading, isPlaying} = this.state;
+
     return (
-      <audio></audio>
+      <>
+        <button
+          className={`track__button track__button--${isPlaying ? `pause` : `play`}`}
+          type="button"
+          disabled={isLoading}
+          onClick={() => this.setState({isPlaying: !this.state.isPlaying})}
+        ></button>
+        <div className="track__status">
+          <audio></audio>
+        </div>
+      </>
     );
   }
 }
@@ -41,5 +74,5 @@ export default AudioPlayer;
 
 AudioPlayer.propTypes = {
   src: PropTypes.string.isRequired,
-  isActive: PropTypes.bool.isRequired
+  isPlaying: PropTypes.bool.isRequired
 };
