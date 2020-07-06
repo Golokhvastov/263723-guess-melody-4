@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import {App} from "./app.jsx";
 
 const questions = [
   {
@@ -53,6 +53,9 @@ it(`App render correctly`, () => {
     .create(<App
       errorsCount = {3}
       questions = {questions}
+      onWelcomeButtonClick = {() => {}}
+      onUserAnswer = {() => {}}
+      step = {-1}
     />)
     .toJSON();
 

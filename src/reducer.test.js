@@ -1,4 +1,4 @@
-import {reducer, ActionType} from "./reducer.js";
+import {reducer, ActionType, ActionCreator} from "./reducer.js";
 
 it(`Reducer without additional parameters should return initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
@@ -52,5 +52,17 @@ it(`Reducer should increment number of mistakes by a given value`, () => {
   })).toEqual({
     step: -1,
     mistakes: 0,
+  });
+});
+
+it(`ActionCreator works correctly`, () => {
+  expect(ActionCreator.incrementStep()).toEqual({
+    type: ActionType.INCREMENT_STEP,
+    payload: 1,
+  });
+
+  expect(ActionCreator.incrementMistakes()).toEqual({
+    type: ActionType.INCREMENT_MISTAKES,
+    payload: 1,
   });
 });
