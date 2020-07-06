@@ -16,7 +16,12 @@ const GenreQuestionScreenWrapper = withAudioPlayer(GenreQuestionScreen);
 
 class App extends React.PureComponent {
   _renderGameScreen() {
-    const {errorsCount, questions, onWelcomeButtonClick, onUserAnswer, step} = this.props;
+    const {
+      errorsCount,
+      questions,
+      onWelcomeButtonClick,
+      onUserAnswer,
+      step} = this.props;
 
     if (step < 0 || step >= questions.length) {
       return (
@@ -33,6 +38,7 @@ class App extends React.PureComponent {
           return (
             <GameScreen
               type={question.type}
+              errorsCount = {errorsCount}
             >
               <ArtistQuestionScreenWrapper
                 question = {question}
@@ -44,6 +50,7 @@ class App extends React.PureComponent {
           return (
             <GameScreen
               type={question.type}
+              errorsCount = {errorsCount}
             >
               <GenreQuestionScreenWrapper
                 question = {question}
@@ -86,7 +93,7 @@ class App extends React.PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-    step: state.step
+    step: state.step,
   };
 };
 
@@ -95,9 +102,9 @@ const mapDispatchToProps = (dispatch) => {
     onWelcomeButtonClick: () => {
       dispatch(ActionCreator.incrementStep());
     },
-    onUserAnswer: () => {
+    onUserAnswer: (question, userAnswer) => {
       dispatch(ActionCreator.incrementStep());
-      dispatch(ActionCreator.incrementMistakes());
+      dispatch(ActionCreator.incrementMistakes(question, userAnswer));
     }
   };
 };

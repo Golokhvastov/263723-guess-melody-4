@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GameScreen render correctly with on mistake 1`] = `
+<div
+  className="game__mistakes"
+>
+  <div
+    className="wrong"
+  />
+  <div
+    className="correct"
+  />
+  <div
+    className="correct"
+  />
+</div>
+`;
+
+exports[`GameScreen render correctly with zero mistakes 1`] = `
+<div
+  className="game__mistakes"
+>
+  <div
+    className="correct"
+  />
+  <div
+    className="correct"
+  />
+  <div
+    className="correct"
+  />
+</div>
+`;

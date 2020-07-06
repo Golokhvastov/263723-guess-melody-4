@@ -45,13 +45,13 @@ exports[`GameScreen render correctly with type GameType.ARTIST 1`] = `
       className="game__mistakes"
     >
       <div
-        className="wrong"
+        className="correct"
       />
       <div
-        className="wrong"
+        className="correct"
       />
       <div
-        className="wrong"
+        className="correct"
       />
     </div>
   </header>

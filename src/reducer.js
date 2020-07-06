@@ -1,4 +1,5 @@
 import {extend} from "./utils.js";
+import {GameType} from "./const.js";
 
 const ActionType = {
   INCREMENT_STEP: `INCREMENT_STEP`,
@@ -10,15 +11,42 @@ const initialState = {
   mistakes: 0
 };
 
+const isArtistAnswerCorrect = (question, userAnswer) => {
+  return userAnswer.artist === question.song.artist;
+};
+
+const isGenreAnswerCorrect = (question, userAnswer) => {
+  for (let i = 0; i < userAnswer.length; i++) {
+    const correctAnswer = question.answers[i].genre === question.genre;
+    if (userAnswer[i] !== correctAnswer) {
+      return false;
+    }
+  }
+  return true;
+};
+
 const ActionCreator = {
   incrementStep: () => ({
     type: ActionType.INCREMENT_STEP,
     payload: 1,
   }),
-  incrementMistakes: () => ({
-    type: ActionType.INCREMENT_MISTAKES,
-    payload: 1,
-  }),
+  incrementMistakes: (question, userAnswer) => {
+    let answerIsCorrect = false;
+
+    switch (question.type) {
+      case GameType.ARTIST:
+        answerIsCorrect = isArtistAnswerCorrect(question, userAnswer);
+        break;
+      case GameType.GENRE:
+        answerIsCorrect = isGenreAnswerCorrect(question, userAnswer);
+        break;
+    }
+
+    return {
+      type: ActionType.INCREMENT_MISTAKES,
+      payload: answerIsCorrect ? 0 : 1,
+    };
+  }
 };
 
 const reducer = (state = initialState, action) => {
