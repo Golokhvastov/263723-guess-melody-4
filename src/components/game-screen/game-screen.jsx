@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Mistakes from "../mistakes/mistakes.jsx";
 
 const GameScreen = (props) => {
-  const {type, mistakes, errorsCount, children} = props;
+  const {type, mistakes, maxMistakes, children} = props;
 
   return (
     <section className={`game game--${type}`}>
@@ -21,7 +21,7 @@ const GameScreen = (props) => {
 
         <Mistakes
           mistakes = {mistakes}
-          maxMistakes = {errorsCount}
+          maxMistakes = {maxMistakes}
         />
       </header>
 
@@ -44,6 +44,6 @@ export default connect(
 GameScreen.propTypes = {
   type: PropTypes.string.isRequired,
   mistakes: PropTypes.number.isRequired,
-  errorsCount: PropTypes.number.isRequired,
+  maxMistakes: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
 };

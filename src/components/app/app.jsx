@@ -17,7 +17,7 @@ const GenreQuestionScreenWrapper = withAudioPlayer(GenreQuestionScreen);
 class App extends React.PureComponent {
   _renderGameScreen() {
     const {
-      errorsCount,
+      maxMistakes,
       questions,
       onWelcomeButtonClick,
       onUserAnswer,
@@ -26,7 +26,7 @@ class App extends React.PureComponent {
     if (step < 0 || step >= questions.length) {
       return (
         <WelcomeScreen
-          errorsCount = {errorsCount}
+          maxMistakes = {maxMistakes}
           onWelcomeButtonClick = {onWelcomeButtonClick}
         />
       );
@@ -38,7 +38,7 @@ class App extends React.PureComponent {
           return (
             <GameScreen
               type={question.type}
-              errorsCount = {errorsCount}
+              maxMistakes = {maxMistakes}
             >
               <ArtistQuestionScreenWrapper
                 question = {question}
@@ -50,7 +50,7 @@ class App extends React.PureComponent {
           return (
             <GameScreen
               type={question.type}
-              errorsCount = {errorsCount}
+              maxMistakes = {maxMistakes}
             >
               <GenreQuestionScreenWrapper
                 question = {question}
@@ -94,6 +94,8 @@ class App extends React.PureComponent {
 const mapStateToProps = (state) => {
   return {
     step: state.step,
+    maxMistakes: state.maxMistakes,
+    questions: state.questions,
   };
 };
 
@@ -103,8 +105,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(ActionCreator.incrementStep());
     },
     onUserAnswer: (question, userAnswer) => {
-      dispatch(ActionCreator.incrementStep());
       dispatch(ActionCreator.incrementMistakes(question, userAnswer));
+      dispatch(ActionCreator.incrementStep());
     }
   };
 };
@@ -116,7 +118,7 @@ export default connect(
 )(App);
 
 App.propTypes = {
-  errorsCount: PropTypes.number.isRequired,
+  maxMistakes: PropTypes.number.isRequired,
   questions: PropTypes.arrayOf(
       PropTypes.object
   ).isRequired,

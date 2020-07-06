@@ -5,7 +5,7 @@ import WelcomeScreen from "./welcome-screen.jsx";
 it(`WelcomeScreen render correctly`, () => {
   const tree = renderer
     .create(<WelcomeScreen
-      errorsCount = {3}
+      maxMistakes = {3}
       onWelcomeButtonClick = {() => {}}
     />)
     .toJSON();

@@ -10,7 +10,7 @@ Enzyme.configure({
 it(`e2e test WelcomeScreen`, () => {
   const onWelcomeButtonClick = jest.fn();
   const welcomeScreen = shallow(<WelcomeScreen
-    errorsCount = {4}
+    maxMistakes = {4}
     onWelcomeButtonClick = {onWelcomeButtonClick}
   />);
 

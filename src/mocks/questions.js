@@ -8,15 +8,15 @@ export default [
     answers: [
       {
         artist: `Пелагея`,
-        picture: `https://api.adorable.io/avatars/128/${Math.random()}`
+        picture: `https://api.adorable.io/avatars/128/A}`
       },
       {
         artist: `Краснознаменная дивизия имени моей бабушки`,
-        picture: `https://api.adorable.io/avatars/128/${Math.random()}`
+        picture: `https://api.adorable.io/avatars/128/AB}`
       },
       {
         artist: `Lorde`,
-        picture: `https://api.adorable.io/avatars/128/${Math.random()}`
+        picture: `https://api.adorable.io/avatars/128/AC}`
       }
     ]
   },

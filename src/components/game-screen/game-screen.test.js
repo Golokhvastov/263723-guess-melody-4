@@ -12,7 +12,7 @@ describe(`GameScreen render correctly`, () => {
         <GameScreen
           type={GameType.ARTIST}
           mistakes = {0}
-          errorsCount = {3}
+          maxMistakes = {3}
         >
           {children}
         </GameScreen>
@@ -27,7 +27,7 @@ describe(`GameScreen render correctly`, () => {
         <GameScreen
           type={GameType.ARTIST}
           mistakes = {3}
-          errorsCount = {3}
+          maxMistakes = {3}
         >
           {children}
         </GameScreen>
