@@ -1,11 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const withUserAnswers = (Component) => {
   class WithUserAnswers extends React.PureComponent {
     constructor(props) {
       super(props);
       this.state = {
-        answers: [false, false, false, false],
+        answers: new Array(props.question.answers.length).fill(false),
       };
       this.answerChangeHandle = this.answerChangeHandle.bind(this);
       this.answerHandler = this.answerHandler.bind(this);
@@ -35,7 +36,12 @@ const withUserAnswers = (Component) => {
     }
   }
 
-  WithUserAnswers.propTypes = {};
+  WithUserAnswers.propTypes = {
+    question: PropTypes.shape({
+      answers: PropTypes.array.isRequired,
+    }).isRequired,
+    onAnswer: PropTypes.func.isRequired,
+  };
 
   return WithUserAnswers;
 };
