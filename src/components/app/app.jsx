@@ -8,11 +8,12 @@ import ArtistQuestionScreen from "../artist-question-screen/artist-question-scre
 import GenreQuestionScreen from "../genre-question-screen/genre-question-screen.jsx";
 import {GameType} from "../../const.js";
 import withAudioPlayer from "../../hocs/with-audio-player/with-audio-player.js";
+import withUserAnswers from "../../hocs/with-user-answers/with-user-answers.js";
 import {ActionCreator} from "../../reducer.js";
 
 
 const ArtistQuestionScreenWrapper = withAudioPlayer(ArtistQuestionScreen);
-const GenreQuestionScreenWrapper = withAudioPlayer(GenreQuestionScreen);
+const GenreQuestionScreenWrapper = withUserAnswers(withAudioPlayer(GenreQuestionScreen));
 
 class App extends React.PureComponent {
   _renderGameScreen() {
